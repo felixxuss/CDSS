@@ -2,6 +2,22 @@ import os
 
 import streamlit as st
 
+pre_idx = 2
+
+pre_vals = {
+    "age": [37, 37, 49],
+    "sex": [1, 1, 0],
+    "chest pain type": [1, 3, 2],
+    "resting bp s": [130, 140, 160],
+    "cholesterol": [283, 207, 180],
+    "fasting blood sugar": [1, 1, 1],
+    "resting ecg": [1, 0, 0],
+    "max heart rate": [98, 130, 156],
+    "exercise angina": [1, 0, 1],
+    "oldpeak": [0.0, 1.5, 1.0],
+    "ST slope": [0, 1, 1],
+}
+
 
 def show_form():
     with st.form("user_input_form"):
@@ -10,30 +26,54 @@ def show_form():
         col1_1, col1_2 = st.columns(2)
 
         with col1_1:
-            age = st.number_input("Age", min_value=29, max_value=77, step=1)
+            age = st.number_input(
+                "Age",
+                min_value=29,
+                max_value=77,
+                step=1,
+                value=pre_vals["age"][pre_idx],
+            )
         with col1_2:
-            sex = st.selectbox("Gender", ["Female", "Male"])
+            sex = st.selectbox(
+                "Gender", ["Female", "Male"], index=pre_vals["sex"][pre_idx]
+            )
 
         # second row
         col2_1, col2_2 = st.columns(2)
 
         with col2_1:
             trestbps = st.number_input(
-                "Resting Blood Pressure [mm Hg]", min_value=0, max_value=200, step=1
+                "Resting Blood Pressure [mm Hg]",
+                min_value=0,
+                max_value=200,
+                step=1,
+                value=pre_vals["resting bp s"][pre_idx],
             )
         with col2_2:
             chol = st.number_input(
-                "Serum Cholestoral [mg/dl]", min_value=0, max_value=603, step=1
+                "Serum Cholestoral [mg/dl]",
+                min_value=0,
+                max_value=603,
+                step=1,
+                value=pre_vals["cholesterol"][pre_idx],
             )
 
         # third row
         col3_1, col3_2 = st.columns(2)
 
         with col3_1:
-            fbs = st.selectbox("Fasting Blood Sugar > 120 mg/dl", ["True", "False"])
+            fbs = st.selectbox(
+                "Fasting Blood Sugar > 120 mg/dl",
+                ["True", "False"],
+                index=pre_vals["fasting blood sugar"][pre_idx],
+            )
 
         with col3_2:
-            exang = st.selectbox("Exercise induced angina", ["Yes", "No"])
+            exang = st.selectbox(
+                "Exercise induced angina",
+                ["Yes", "No"],
+                index=pre_vals["exercise angina"][pre_idx],
+            )
 
         # fourth row
         col4_1, col4_2 = st.columns(2)
@@ -46,6 +86,7 @@ def show_form():
                     "flat",
                     "downsloping",
                 ],
+                index=pre_vals["ST slope"][pre_idx],
             )
 
         with col4_2:
@@ -57,6 +98,7 @@ def show_form():
                     "Non-Anginal Pain",
                     "Asymptomatic",
                 ],
+                index=pre_vals["chest pain type"][pre_idx],
             )
 
         # fifth row
@@ -68,11 +110,16 @@ def show_form():
                 min_value=-2.6,
                 max_value=6.2,
                 step=0.1,
+                value=pre_vals["oldpeak"][pre_idx],
             )
 
         with col5_2:
             thalach = st.number_input(
-                "Maximum heart rate achieved", min_value=60, max_value=202, step=1
+                "Maximum heart rate achieved",
+                min_value=60,
+                max_value=202,
+                step=1,
+                value=pre_vals["max heart rate"][pre_idx],
             )
 
         col6_1 = st.columns(1)[0]
@@ -84,6 +131,7 @@ def show_form():
                     "having ST-T wave abnormality",
                     "showing probable or definite left ventricular hypertrophy by Estes' criteria",
                 ],
+                index=pre_vals["resting ecg"][pre_idx],
             )
 
         # Submit button for the form
